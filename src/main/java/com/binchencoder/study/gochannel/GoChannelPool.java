@@ -5,6 +5,9 @@ import java.util.WeakHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * https://stackoverflow.com/questions/22561110/equivalent-of-golang-channel-in-java
+ */
 public class GoChannelPool {
 
   private final static GoChannelPool defaultInstance = newPool();
