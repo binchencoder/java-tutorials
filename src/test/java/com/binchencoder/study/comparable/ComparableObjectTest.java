@@ -2,7 +2,9 @@ package com.binchencoder.study.comparable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -24,6 +26,10 @@ public class ComparableObjectTest extends TestCase {
     System.out.println(objects);
     Collections.sort(objects);
     System.out.println(objects);
+
+    System.out.println(
+        objects.stream().sorted(Comparator.comparing(ComparableObject::getScore).reversed())
+            .collect(Collectors.toList()));
   }
 
 }
