@@ -19,6 +19,7 @@ public class TestPrintStackTrace {
       exception();
     } catch (Exception e) {
       e.printStackTrace();
+      LOGGER.error("error: ", e);
     }
     System.out.println("异常后");
   }
