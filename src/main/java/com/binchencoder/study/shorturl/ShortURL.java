@@ -14,7 +14,7 @@ public class ShortURL {
    * @param num Long 型数字
    * @return 62进制字符串
    */
-  public String idToShortURL(long num) {
+  public static String idToShortURL(long num) {
     StringBuilder shortUrl = new StringBuilder();
     int remainder;
     int scale = 62;
@@ -29,7 +29,7 @@ public class ShortURL {
     return StringUtils.leftPad(value, 6, '0');
   }
 
-  public long shortUrlToId(String shortUrl) {
+  public static long shortUrlToId(String shortUrl) {
     int scale = 62;
     shortUrl = shortUrl.replace("^0*", "");
     long num = 0;
@@ -42,7 +42,7 @@ public class ShortURL {
     return num;
   }
 
-  public String encode(long num) {
+  public static String encode(long num) {
     StringBuilder sb = new StringBuilder();
     while (num > 0) {
       sb.append(ALPHABET.charAt((int) num % BASE));
@@ -51,7 +51,7 @@ public class ShortURL {
     return sb.reverse().toString();
   }
 
-  public long decode(String str) {
+  public static long decode(String str) {
     long num = 0;
     for (int i = 0; i < str.length(); i++) {
       num = num * BASE + ALPHABET.indexOf(str.charAt(i));
@@ -61,17 +61,17 @@ public class ShortURL {
 
   public static void main(String[] args) {
     ShortURL shortURL = new ShortURL();
-    Random random = new Random(10000000l);
-//    for (int i = 1; i < 30; i++) {
-//      int j = random.nextInt();
-//      if (j < 0) {
-//        j = 0 - j;
-//      }
-//      String shortUrl = shortURL.idToShortURL(j);
-//      long id = shortURL.shortUrlToId(shortUrl);
-//      System.out.println("id=" + j + ", shortUrl=" + shortUrl);
-//      System.out.println("shortUrl=" + shortUrl + ", id=" + id);
-//    }
+    Random random = new Random(Long.MIN_VALUE);
+    for (int i = 1; i < 30; i++) {
+      int j = random.nextInt();
+      if (j < 0) {
+        j = 0 - j;
+      }
+      String shortUrl = shortURL.idToShortURL(j);
+      long id = shortURL.shortUrlToId(shortUrl);
+      System.out.println("id=" + j + ", shortUrl=" + shortUrl);
+      System.out.println("shortUrl=" + shortUrl + ", id=" + id);
+    }
 
     System.out.println("======================================");
     for (int i = 1; i < 30; i++) {
