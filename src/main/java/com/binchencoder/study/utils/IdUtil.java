@@ -13,9 +13,9 @@ public class IdUtil {
   public static Long getUniqueID(long userID) {
     Preconditions.checkArgument(userID > 0L, "UserID must be greater than 0");
 
-    String orderPrefix = new StringBuilder().append(System.currentTimeMillis()).append(userID)
+    String prefix = new StringBuilder().append(System.currentTimeMillis()).append(userID)
         .toString();
-    int hashCode = orderPrefix.hashCode();
+    int hashCode = prefix.hashCode();
 
     Calendar calendar = Calendar.getInstance();
     String orderNo = new StringBuffer().append(calendar.get(Calendar.MONTH) + 1)
