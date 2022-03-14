@@ -53,4 +53,16 @@ public class Strings {
     }
     System.out.println(s);
   }
+
+  @Test
+  public void intern() {
+    // Create three strings in three different ways.
+    String s1 = "Hello";
+    String s2 = new StringBuffer("He").append("llo").toString();
+    String s3 = s2.intern();
+
+    // Determine which strings are equivalent using the operator
+    System.out.println("s1 == s2?" + (s1 == s2)); // false
+    System.out.println("s1 == s3?" + (s1 == s3)); // true
+  }
 }
