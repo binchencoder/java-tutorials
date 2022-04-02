@@ -31,6 +31,9 @@
 
 		<!-- Google guava dependency versions -->
 		<google.guava.version>29.0-jre</google.guava.version>
+		<google.gson.version>2.8.5</google.gson.version>
+
+		<lombok.version>1.18.22</lombok.version>
 	</properties>
 
 	<dependencies>
@@ -114,6 +117,17 @@
 			<groupId>org.mongodb</groupId>
 			<artifactId>bson</artifactId>
 			<version>4.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${google.gson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
 		</dependency>
 
 		<!-- Testing -->
