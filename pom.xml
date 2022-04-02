@@ -17,18 +17,20 @@
 		<java.version>1.8</java.version>
 
 		<!-- Logger dependency versions -->
-		<org.slf4j-version>1.6.3</org.slf4j-version>
-		<logback-version>1.1.2</logback-version>
+		<org.slf4j.version>1.6.3</org.slf4j.version>
+		<logback.version>1.1.2</logback.version>
 
 		<!-- Testing dependency versions -->
-		<org.testng-verison>6.8</org.testng-verison>
-		<org.hamcrest-version>1.1</org.hamcrest-version>
+		<org.testng.verison>7.5</org.testng.verison>
+		<org.mockito.version>3.4.6</org.mockito.version>
+		<junit.version>4.13.2</junit.version>
+		<org.hamcrest.version>1.1</org.hamcrest.version>
 
 		<!-- Spring framework dependency versions -->
-		<springframework.version>5.2.8.RELEASE</springframework.version>
+		<springframework.version>5.3.18</springframework.version>
 
 		<!-- Google guava dependency versions -->
-		<google.guava.version>28.1-jre</google.guava.version>
+		<google.guava.version>29.0-jre</google.guava.version>
 	</properties>
 
 	<dependencies>
@@ -73,7 +75,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.1.2</version>
+			<version>1.2.0</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -118,8 +120,19 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>${org.testng-verison}</version>
+			<version>${org.testng.verison}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${org.mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
 		</dependency>
 	</dependencies>
 </project>
