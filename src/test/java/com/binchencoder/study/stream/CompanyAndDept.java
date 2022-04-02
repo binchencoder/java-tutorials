@@ -11,20 +11,20 @@ import lombok.Data;
 @Builder
 public class CompanyAndDept implements Comparable<CompanyAndDept> {
 
-    // 公司ID
-    private Long cid;
+  // 公司ID
+  private Long cid;
 
-    // 部门ID
-    private Long deptId;
+  // 部门ID
+  private Long deptId;
 
-    @Override
-    public int compareTo(CompanyAndDept o) {
-        if (cid > o.getCid()) {
-            return 1;
-        }
-        if (cid < o.getCid()) {
-            return -1;
-        }
-        return 0;
+  @Override
+  public int compareTo(CompanyAndDept o) {
+    if (cid > o.getCid()) {
+      return 1;
     }
+    if (cid < o.getCid()) {
+      return -1;
+    }
+    return 0;
+  }
 }

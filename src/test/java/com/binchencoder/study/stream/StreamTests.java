@@ -17,51 +17,51 @@ import org.testng.collections.Lists;
  */
 public class StreamTests {
 
-    private static List<Stream> lst = Lists.newArrayList();
-    private static List<CompanyAndDept> companyAndDepts = Lists.newArrayList();
+  private static List<Stream> lst = Lists.newArrayList();
+  private static List<CompanyAndDept> companyAndDepts = Lists.newArrayList();
 
-    @BeforeClass()
-    public static void init() {
-        for (int i = 0; i < 100; i++) {
-            lst.add(new Stream(i, "stream" + i));
-        }
-
-        lst.add(null);
-
-        for (int i = 0; i < 100; i++) {
-            companyAndDepts.add(CompanyAndDept.builder()
-                .cid(RandomUtils.nextLong(1, 10))
-                .deptId(RandomUtils.nextLong(1, 20))
-                .build());
-        }
+  @BeforeClass()
+  public static void init() {
+    for (int i = 0; i < 100; i++) {
+      lst.add(new Stream(i, "stream" + i));
     }
 
-    @Test
-    public void compareParallelStreamAndStream() {
-        long start = System.currentTimeMillis();
-        List<Long> ids = lst.parallelStream()
-            .filter(stream -> null != stream && stream.getId() % 2 == 1)
-            .map(Stream::getId)
-            .collect(Collectors.toList());
-        System.out.println("parallelStream cost time:" + (System.currentTimeMillis() - start));
+    lst.add(null);
 
-        long start1 = System.currentTimeMillis();
-        List<Long> ids1 = lst.stream()
-            .filter(stream -> null != stream && stream.getId() % 2 == 1)
-            .map(Stream::getId).collect(
-                Collectors.toList());
-        System.out.println("stream cost time:" + (System.currentTimeMillis() - start1));
+    for (int i = 0; i < 100; i++) {
+      companyAndDepts.add(CompanyAndDept.builder()
+          .cid(RandomUtils.nextLong(1, 10))
+          .deptId(RandomUtils.nextLong(1, 20))
+          .build());
     }
+  }
 
-    @Test
-    public void groupingBy() {
-        Collections.sort(companyAndDepts);
-        System.out.println(new Gson().toJson(companyAndDepts));
+  @Test
+  public void compareParallelStreamAndStream() {
+    long start = System.currentTimeMillis();
+    List<Long> ids = lst.parallelStream()
+        .filter(stream -> null != stream && stream.getId() % 2 == 1)
+        .map(Stream::getId)
+        .collect(Collectors.toList());
+    System.out.println("parallelStream cost time:" + (System.currentTimeMillis() - start));
 
-        Map<Long, Set<Long>> cidAndDeptIds = companyAndDepts.stream()
-            .sorted()
-            .collect(Collectors.groupingBy(CompanyAndDept::getCid,
-                Collectors.mapping(CompanyAndDept::getDeptId, Collectors.toSet())));
-        System.out.println(new Gson().toJson(cidAndDeptIds));
-    }
+    long start1 = System.currentTimeMillis();
+    List<Long> ids1 = lst.stream()
+        .filter(stream -> null != stream && stream.getId() % 2 == 1)
+        .map(Stream::getId).collect(
+            Collectors.toList());
+    System.out.println("stream cost time:" + (System.currentTimeMillis() - start1));
+  }
+
+  @Test
+  public void groupingBy() {
+    Collections.sort(companyAndDepts);
+    System.out.println(new Gson().toJson(companyAndDepts));
+
+    Map<Long, Set<Long>> cidAndDeptIds = companyAndDepts.stream()
+        .sorted()
+        .collect(Collectors.groupingBy(CompanyAndDept::getCid,
+            Collectors.mapping(CompanyAndDept::getDeptId, Collectors.toSet())));
+    System.out.println(new Gson().toJson(cidAndDeptIds));
+  }
 }
