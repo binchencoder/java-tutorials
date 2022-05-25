@@ -27,7 +27,7 @@
 		<org.hamcrest.version>1.1</org.hamcrest.version>
 
 		<!-- Spring framework dependency versions -->
-		<springframework.version>5.3.18</springframework.version>
+		<springframework.version>5.3.20</springframework.version>
 
 		<!-- Google guava dependency versions -->
 		<google.guava.version>29.0-jre</google.guava.version>
