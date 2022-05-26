@@ -81,13 +81,29 @@ public class DownloadFileUtil {
     /**
      * 下载指定net url的文件, 带token下载
      *
-     * @param targetFile 目标文件
-     * @param fileUrl    文件net url
-     * @param token      用户认证token
+     * @param targetPathname 目标文件路径
+     * @param fileNetUrl     文件net url
+     * @param token          用户认证token
      */
-    public void downloadFile(File targetFile, String fileUrl, String token)
+    public void downloadFile(String targetPathname, String fileNetUrl, String token)
         throws FileNotFoundException {
-        String downloadUrl = this.getDownloadFsUrl(fileUrl, token);
+        String downloadUrl = this.getDownloadFsUrl(fileNetUrl, token);
+
+        File targetFile = new File(targetPathname);
+        this.downloadFile(targetFile, downloadUrl);
+    }
+
+    /**
+     * 下载指定net url的文件, 带token下载
+     *
+     * @param targetFile 目标文件
+     * @param fileNetUrl 文件net url
+     * @param token      用户认证token
+     * @throws FileNotFoundException
+     */
+    public void downloadFile(File targetFile, String fileNetUrl, String token)
+        throws FileNotFoundException {
+        String downloadUrl = this.getDownloadFsUrl(fileNetUrl, token);
         this.downloadFile(targetFile, downloadUrl);
     }
 
@@ -140,12 +156,12 @@ public class DownloadFileUtil {
      * 下载指定net url的文件
      *
      * @param targetFile 目标文件
-     * @param fileUrl    文件net url
+     * @param fileNetUrl 文件net url
      */
-    public void downloadFile(File targetFile, String fileUrl) throws FileNotFoundException {
+    public void downloadFile(File targetFile, String fileNetUrl) throws FileNotFoundException {
 //        HttpPost post = new HttpPost(fileUrl);
-        log.info("Download file url:{}, target file path:{}", fileUrl, targetFile.getPath());
-        HttpGet get = new HttpGet(fileUrl);
+        log.info("Download file url:{}, target file path:{}", fileNetUrl, targetFile.getPath());
+        HttpGet get = new HttpGet(fileNetUrl);
         CloseableHttpClient httpClient = this.getHttpClient();
 
         InputStream is = null;
@@ -162,7 +178,7 @@ public class DownloadFileUtil {
 
                 EntityUtils.consume(entity);
                 log.error("Failed download file, httpStatusCode:{}, fileURL:{}, error{}",
-                    statusCode, fileUrl, error);
+                    statusCode, fileNetUrl, error);
                 // TODO(chenbin) 文件下载失败处理
                 return;
             }
@@ -175,7 +191,7 @@ public class DownloadFileUtil {
             entity.writeTo(os);
             get.reset();
         } catch (IOException e) {
-            log.error("Download file IOException, fileURL:{}", fileUrl, e);
+            log.error("Download file IOException, fileURL:{}", fileNetUrl, e);
             get.abort();
         } finally {
             if (Objects.nonNull(is)) {
