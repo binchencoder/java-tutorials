@@ -36,12 +36,12 @@ public class RandomUtil {
      * 生成制定范围内的随机数
      *
      * @param scopeMin 最小数
-     * @param scoeMax  最大数
+     * @param scopeMax 最大数
      * @return 随机数
      */
-    public static int integer(int scopeMin, int scoeMax) {
+    public static int integer(int scopeMin, int scopeMax) {
         Random random = new Random();
-        return random.nextInt(scoeMax) % (scoeMax - scopeMin + 1) + scopeMin;
+        return random.nextInt(scopeMax) % (scopeMax - scopeMin + 1) + scopeMin;
     }
 
     /**

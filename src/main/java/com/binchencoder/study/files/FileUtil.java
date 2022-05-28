@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.MessageFormat;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 
 /**
  * 文件操作工具类
@@ -197,6 +198,22 @@ public class FileUtil {
         mkdirsAddChmod777(dstDir);
         for (String f : srcDir.list()) {
             copyDirectoryCompatibilityMode(new File(srcDir, f), dstDir);
+        }
+    }
+
+    /**
+     * Copies a directory to within another directory preserving the file dates.
+     *
+     * @param srcDir  源文件夹
+     * @param destDir 目标文件夹
+     */
+    public static void copyDirectoryToDirectory(final File srcDir, final File destDir) {
+        try {
+            FileUtils.copyDirectoryToDirectory(srcDir, destDir);
+        } catch (IOException e) {
+            log.error("FileUtil#copyDirectoryToDirectory error, srcDir: {}, destDir: {}",
+                srcDir, destDir);
+            // PASS
         }
     }
 
