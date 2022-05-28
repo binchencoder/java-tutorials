@@ -19,7 +19,7 @@ class FileUtilTest {
         File dir1 = new File("/home/chenbin/data/resources/brat/data/449145673583206400");
         File dir2 = new File("/home/chenbin/data/resources/brat/data/449208453736734720");
 
-        File dstDir = new File("/home/chenbin");
+        File dstDir = new File("/home/chenbin/data");
         for (int i = 0; i < 2; i++) {
             FileUtils.copyDirectoryToDirectory(dir1, dstDir);
             FileUtils.copyDirectoryToDirectory(dir2, dstDir);

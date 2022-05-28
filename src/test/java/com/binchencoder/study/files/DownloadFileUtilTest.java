@@ -19,7 +19,7 @@ class DownloadFileUtilTest extends BaseApplicationJunit {
     void downloadFile() throws FileNotFoundException {
 //        File downFile = new File(
 //            bratConfig.getCorpusTmpPath() + Constant.SYSTEM_FILE_SEP + "temp.txt");
-        File downFile = new File("/home/chenbin" + Constant.SYSTEM_FILE_SEP + "temp.txt");
+        File downFile = new File("/home/chenbin/test" + Constant.SYSTEM_FILE_SEP + "temp.txt");
         downloadFileUtil.downloadFile(downFile,
             "https://engine-dev.piesat.cn/bpaas/fs/res/downloadAuthn/XeD2xIeUsiMk8a2aZhBYZrVIT.txt?appKey=9e92d795a36edea0&x-token=5123a1cde469a42772eea00d2b734703");
 

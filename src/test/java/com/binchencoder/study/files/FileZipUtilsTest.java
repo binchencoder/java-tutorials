@@ -9,7 +9,7 @@ class FileZipUtilsTest {
 
     @Test
     void zipUncompress() throws IOException {
-        File srcZipFile = new File("/home/chenbin", "ner-spacy.zip");
+        File srcZipFile = new File("/home/chenbin/algo", "ner-spacy.zip");
         FileZipUtils.zipUncompress(srcZipFile, "/home/chenbin/data");
     }
 }
