@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class DownloadFileUtilTest extends BaseApplicationJunit {
+public class DownloadFileUtilTest extends BaseApplicationJunit {
 
     @Autowired
     private DownloadFileUtil downloadFileUtil;
