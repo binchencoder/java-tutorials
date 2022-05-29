@@ -2,16 +2,15 @@ package com.binchencoder.study.files;
 
 import java.io.File;
 import java.io.IOException;
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class FileUtilTest {
+public class FileUtilsTest {
 
     @Test
     public void testGetFileSuffix() {
         String fileName = "a.txt";
-        Assert.assertTrue(FileUtil.getFileSuffix(fileName).equals(".txt"));
+        Assert.assertTrue(FileUtils.getFileSuffix(fileName).equals(".txt"));
     }
 
     @Test
@@ -21,8 +20,8 @@ public class FileUtilTest {
 
         File dstDir = new File("/home/chenbin/data");
         for (int i = 0; i < 2; i++) {
-            FileUtils.copyDirectoryToDirectory(dir1, dstDir);
-            FileUtils.copyDirectoryToDirectory(dir2, dstDir);
+            org.apache.commons.io.FileUtils.copyDirectoryToDirectory(dir1, dstDir);
+            org.apache.commons.io.FileUtils.copyDirectoryToDirectory(dir2, dstDir);
         }
     }
 
@@ -30,6 +29,6 @@ public class FileUtilTest {
     @Test
     public void testCopyDirectory() throws IOException {
         File rootDir = new File(DIR_PATH);
-        FileUtil.copyDirectory(rootDir, rootDir);
+        FileUtils.copyDirectory(rootDir, rootDir);
     }
 }

@@ -37,7 +37,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class DownloadFileUtil {
+public class DownloadFileUtils {
 
     @Autowired
     private FileServerConfig fileServerConfig;
@@ -184,7 +184,7 @@ public class DownloadFileUtil {
             }
 
             File parentFile = targetFile.getParentFile();
-            FileUtil.mkdirsAddChmod777(parentFile);
+            FileUtils.mkdirsAddChmod777(parentFile);
 
             is = entity.getContent();
             os = new FileOutputStream(targetFile);

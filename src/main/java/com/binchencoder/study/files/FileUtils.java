@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.MessageFormat;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 
 /**
  * 文件操作工具类
@@ -20,7 +19,7 @@ import org.apache.commons.io.FileUtils;
  * @author chenbin
  */
 @Slf4j
-public class FileUtil {
+public class FileUtils {
 
     /**
      * 根据文件名称返回后缀名
@@ -153,6 +152,7 @@ public class FileUtil {
                 StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             log.error("FileUtil#copyFile error", e);
+            // PASS
         }
     }
 
@@ -209,7 +209,7 @@ public class FileUtil {
      */
     public static void copyDirectoryToDirectory(final File srcDir, final File destDir) {
         try {
-            FileUtils.copyDirectoryToDirectory(srcDir, destDir);
+            org.apache.commons.io.FileUtils.copyDirectoryToDirectory(srcDir, destDir);
         } catch (IOException e) {
             log.error("FileUtil#copyDirectoryToDirectory error, srcDir: {}, destDir: {}",
                 srcDir, destDir);
