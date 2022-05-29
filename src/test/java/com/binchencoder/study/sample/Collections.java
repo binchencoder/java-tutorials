@@ -4,7 +4,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.collect.Lists;
 import java.util.List;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by chenbin on 18-3-30.

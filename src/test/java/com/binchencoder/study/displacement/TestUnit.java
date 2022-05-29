@@ -1,6 +1,6 @@
 package com.binchencoder.study.displacement;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by chenbin on 18-4-16.

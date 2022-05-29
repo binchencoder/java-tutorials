@@ -1,6 +1,6 @@
 package com.binchencoder.study.linkedlist;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by chenbin on 20-11-18.

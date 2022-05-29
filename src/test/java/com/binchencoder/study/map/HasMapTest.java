@@ -2,7 +2,7 @@ package com.binchencoder.study.map;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by chenbin on 20-8-14.

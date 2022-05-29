@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import com.binchencoder.study.shorturl.ShortURL;
 import com.binchencoder.study.shorturl.TinyURL;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IdUtilTest {
 

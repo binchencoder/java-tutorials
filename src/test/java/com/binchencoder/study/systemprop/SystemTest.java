@@ -2,7 +2,7 @@ package com.binchencoder.study.systemprop;
 
 import java.util.Properties;
 import junit.framework.TestCase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SystemTest extends TestCase {
 

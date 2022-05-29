@@ -1,6 +1,6 @@
 package com.binchencoder.study.sample;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * 移位运算测试

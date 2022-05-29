@@ -1,7 +1,7 @@
 package com.binchencoder.study.sort;
 
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SortTest {
 

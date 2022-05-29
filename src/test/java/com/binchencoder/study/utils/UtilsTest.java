@@ -2,7 +2,7 @@ package com.binchencoder.study.utils;
 
 import java.math.BigInteger;
 import org.bson.types.ObjectId;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UtilsTest {
 

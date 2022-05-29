@@ -1,7 +1,7 @@
 package com.binchencoder.study.function;
 
 import java.util.function.Function;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author: chenbin
