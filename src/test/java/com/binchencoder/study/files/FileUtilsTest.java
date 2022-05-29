@@ -27,6 +27,7 @@ public class FileUtilsTest {
     }
 
     private static final String DIR_PATH = "/home/chenbin/test/yuliao";
+
     @Test
     void testCopyDirectory() throws IOException {
         File rootDir = new File(DIR_PATH);
@@ -37,5 +38,12 @@ public class FileUtilsTest {
     void deleteOnExistOfNonSuffix() throws FileNotFoundException {
         File rootDir = new File("/home/chenbin/test/yuliao");
         FileUtils.deleteOnExistOfNonSuffix(rootDir, ".txt");
+    }
+
+    @Test
+    void copyFilesToDirectory() throws IOException {
+        File srcDir = new File("/home/chenbin/test/srctest");
+        File destDir = new File("/home/chenbin/test/desttest");
+        FileUtils.copyFilesToDirectory(srcDir, destDir, (fileName) -> fileName.endsWith(".txt"));
     }
 }

@@ -6,11 +6,13 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.MessageFormat;
+import java.util.function.Predicate;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -46,6 +48,10 @@ public class FileUtils {
     public static void mkdirsAddChmod777(File dirFile) {
         if (dirFile.isFile()) {
             log.warn("This file[{}] is not a directory and cannot be created", dirFile.getPath());
+            return;
+        }
+
+        if (dirFile.exists()) {
             return;
         }
 
@@ -154,16 +160,11 @@ public class FileUtils {
             log.warn("Delete files of root directory[{}] is file", deleteRootDir);
         }
 
-        for (File file : deleteRootDir.listFiles()) {
-            if (file.getName().endsWith(fileSuffix)) {
-                continue;
-            }
-
+        for (File file : deleteRootDir.listFiles(getFilenameFilter(fileSuffix))) {
             try {
                 org.apache.commons.io.FileUtils.forceDelete(file);
             } catch (IOException e) {
-                log.warn("Failed force delete file[{}] in the directory[{}]",
-                    file, deleteRootDir);
+                log.warn("Failed force delete file[{}] in the directory[{}]", file, deleteRootDir);
                 // PASS
             }
         }
@@ -242,10 +243,44 @@ public class FileUtils {
     }
 
     /**
+     * 将源文件夹下特定后缀的文件全部拷贝到目标文件夹下
+     *
+     * @param srcDir            源文件夹
+     * @param dstDir            目标文件夹
+     * @param fileNamePredicate 特定后缀名判断条件
+     * @throws IOException
+     */
+    public static void copyFilesToDirectory(File srcDir, File dstDir,
+        Predicate<String> fileNamePredicate) throws FileNotFoundException, IOException {
+        if (!srcDir.exists()) {
+            log.error("FileUtils#copyDirectory source dir[{}] not exists", srcDir.getPath());
+            throw new FileNotFoundException("Source dir[" + srcDir.getPath() + "] not exists");
+        }
+
+        mkdirsAddChmod777(dstDir);
+        for (String f : srcDir.list()) {
+            // 如果要拷贝的是一个文件, 并且源目录和目标目录是相同的, 则无需拷贝
+            File srcFile = new File(srcDir, f);
+            if (srcFile.isFile()) {
+                if (srcDir.equals(dstDir) || !fileNamePredicate.test(srcFile.getName())) {
+                    continue;
+                }
+            }
+
+            if (srcFile.isDirectory()) {
+                copyFilesToDirectory(srcFile, dstDir, fileNamePredicate);
+            } else {
+                copyFileToDir(srcFile, dstDir);
+            }
+        }
+    }
+
+
+    /**
      * 将源文件夹的文件全部拷贝到目标文件夹下
      *
-     * @param srcDir
-     * @param dstDir
+     * @param srcDir 源文件夹
+     * @param dstDir 目标文件夹
      * @throws IOException
      */
     public static void copyDirectory(File srcDir, File dstDir)
@@ -257,7 +292,13 @@ public class FileUtils {
 
         mkdirsAddChmod777(dstDir);
         for (String f : srcDir.list()) {
-            copyDirectoryCompatibilityMode(new File(srcDir, f), dstDir);
+            // 如果要拷贝的是一个文件, 并且源目录和目标目录是相同的, 则无需拷贝
+            File srcFile = new File(srcDir, f);
+            if (srcFile.isFile() && srcDir.equals(dstDir)) {
+                continue;
+            }
+
+            copyDirectoryCompatibilityMode(srcFile, dstDir);
         }
     }
 
@@ -268,6 +309,15 @@ public class FileUtils {
         } else {
             copyFileToDir(srcFile, dstFile);
         }
+    }
+
+    private static FilenameFilter getFilenameFilter(String fileSuffix) {
+        return (dir, name) -> {
+            if (name.endsWith(fileSuffix)) {
+                return false;
+            }
+            return true;
+        };
     }
 
     /**
