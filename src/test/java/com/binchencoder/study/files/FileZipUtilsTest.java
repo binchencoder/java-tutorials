@@ -3,7 +3,7 @@ package com.binchencoder.study.files;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 class FileZipUtilsTest {
 

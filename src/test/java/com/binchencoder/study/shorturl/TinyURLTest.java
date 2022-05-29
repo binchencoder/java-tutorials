@@ -1,7 +1,7 @@
 package com.binchencoder.study.shorturl;
 
 import com.binchencoder.study.utils.IdUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TinyURLTest {
 

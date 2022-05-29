@@ -3,7 +3,7 @@ package com.binchencoder.study.tree;
 import static org.junit.Assert.assertNull;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by chenbin on 20-12-1.

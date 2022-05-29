@@ -97,13 +97,77 @@ public class FileUtils {
      *
      * @param filePath 要删除的文件路径
      */
-    public static void deleteFile(String filePath) {
+    public static void deleteFileOnExist(String filePath) {
         File file = new File(filePath);
-        deleteFile(file);
+        deleteFileOnExist(file);
     }
 
-    public static void deleteFile(File file) {
+    public static void deleteFileOnExist(File file) {
+        if (!file.exists()) {
+            log.warn("FileUtils#deleteFileOnExist, the delete file[{}] not exists", file);
+        }
         file.deleteOnExit();
+    }
+
+    /**
+     * 删除指定文件夹下的包含指定后缀的文件
+     *
+     * @param deleteRootDir 删除此目录下的文件
+     * @param fileSuffix    要删除的文件后缀
+     * @throws FileNotFoundException
+     */
+    public static void deleteOnExistOfSuffix(File deleteRootDir, String fileSuffix)
+        throws FileNotFoundException {
+        if (!deleteRootDir.exists()) {
+            String msg = MessageFormat.format("Delete files of root directory[{0}] not exists",
+                deleteRootDir.getPath());
+            throw new FileNotFoundException(msg);
+        }
+
+        if (deleteRootDir.isFile()) {
+            log.warn("Delete files of root directory[{}] is file", deleteRootDir);
+        }
+
+        for (File file : deleteRootDir.listFiles()) {
+            if (file.getName().endsWith(fileSuffix)) {
+                file.deleteOnExit();
+            }
+        }
+    }
+
+    /**
+     * 删除指定文件夹下的不包含指定后缀的文件
+     *
+     * @param deleteRootDir 删除此目录下的文件
+     * @param fileSuffix    要删除的文件不包含的文件后缀
+     * @throws FileNotFoundException
+     */
+    public static void deleteOnExistOfNonSuffix(File deleteRootDir, String fileSuffix)
+        throws FileNotFoundException {
+        if (!deleteRootDir.exists()) {
+            String msg = MessageFormat.format("Delete files of root directory[{0}] not exists",
+                deleteRootDir.getPath());
+            throw new FileNotFoundException(msg);
+        }
+
+        if (deleteRootDir.isFile()) {
+            log.warn("Delete files of root directory[{}] is file", deleteRootDir);
+        }
+
+        for (File file : deleteRootDir.listFiles()) {
+            if (file.isDirectory()) {
+                try {
+                    org.apache.commons.io.FileUtils.deleteDirectory(file);
+                } catch (IOException e) {
+                    log.warn("Failed delete dir[{}] in the directory[{}]", file, deleteRootDir);
+                    // PASS
+                }
+                continue;
+            }
+            if (!file.getName().endsWith(fileSuffix)) {
+                file.deleteOnExit();
+            }
+        }
     }
 
     /**
@@ -117,7 +181,7 @@ public class FileUtils {
         String filePath = srcFile.getPath();
         if (!srcFile.exists()) {
             String msg = MessageFormat.format("File[{0}] not found", filePath);
-            log.warn("FileUtil#copyFile, {}", msg);
+            log.warn("FileUtils#copyFile, {}", msg);
             throw new FileNotFoundException(msg);
         }
 
@@ -125,7 +189,7 @@ public class FileUtils {
             java.nio.file.Files.copy(Paths.get(srcFile.getPath()), Paths.get(dstFile.getPath()),
                 StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            log.error("FileUtil#copyFile error", e);
+            log.error("FileUtils#copyFile error", e);
         }
     }
 
@@ -140,7 +204,7 @@ public class FileUtils {
         String filePath = srcFile.getPath();
         if (!srcFile.exists()) {
             String msg = MessageFormat.format("File[{0}] not found", filePath);
-            log.warn("FileUtil#copyFile, {}", msg);
+            log.warn("FileUtils#copyFile, {}", msg);
             throw new FileNotFoundException(msg);
         }
 
@@ -151,8 +215,7 @@ public class FileUtils {
             java.nio.file.Files.copy(srcPath, dstPath.resolve(srcPath.getFileName()),
                 StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            log.error("FileUtil#copyFile error", e);
-            // PASS
+            log.error("FileUtils#copyFile error", e);
         }
     }
 
@@ -165,19 +228,17 @@ public class FileUtils {
      */
     public static void copyDirectory(String srcDir, String dstDir) {
         try {
-            java.nio.file.Files.walk(Paths.get(srcDir))
-                .forEach(source -> {
-                    Path destination = Paths.get(dstDir, source.toString()
-                        .substring(srcDir.length()));
-                    try {
-                        java.nio.file.Files.copy(source, destination,
-                            StandardCopyOption.REPLACE_EXISTING);
-                    } catch (IOException e) {
-                        log.error("Copy file error", e);
-                    }
-                });
+            java.nio.file.Files.walk(Paths.get(srcDir)).forEach(source -> {
+                Path destination = Paths.get(dstDir, source.toString().substring(srcDir.length()));
+                try {
+                    java.nio.file.Files.copy(source, destination,
+                        StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    log.error("Copy file error", e);
+                }
+            });
         } catch (IOException e) {
-            log.error("FileUtil#copyDirectory error", e);
+            log.error("FileUtils#copyDirectory error", e);
         }
     }
 
@@ -191,29 +252,13 @@ public class FileUtils {
     public static void copyDirectory(File srcDir, File dstDir)
         throws FileNotFoundException, IOException {
         if (!srcDir.exists()) {
-            log.error("FileUtil#copyDirectory source dir[{}] not exists", srcDir.getPath());
+            log.error("FileUtils#copyDirectory source dir[{}] not exists", srcDir.getPath());
             throw new FileNotFoundException("Source dir[" + srcDir.getPath() + "] not exists");
         }
 
         mkdirsAddChmod777(dstDir);
         for (String f : srcDir.list()) {
             copyDirectoryCompatibilityMode(new File(srcDir, f), dstDir);
-        }
-    }
-
-    /**
-     * Copies a directory to within another directory preserving the file dates.
-     *
-     * @param srcDir  源文件夹
-     * @param destDir 目标文件夹
-     */
-    public static void copyDirectoryToDirectory(final File srcDir, final File destDir) {
-        try {
-            org.apache.commons.io.FileUtils.copyDirectoryToDirectory(srcDir, destDir);
-        } catch (IOException e) {
-            log.error("FileUtil#copyDirectoryToDirectory error, srcDir: {}, destDir: {}",
-                srcDir, destDir);
-            // PASS
         }
     }
 
@@ -232,7 +277,7 @@ public class FileUtils {
     private static void addChmod777(File file) throws IOException {
         if (!isWindows()) {
             String cmdGrant = "chmod 777 " + file.getPath();
-            log.info("FileUtilFile#addChmod777: augmentation after moving: {}", cmdGrant);
+            log.info("FileUtils#addChmod777: augmentation after moving: {}", cmdGrant);
             Runtime.getRuntime().exec(cmdGrant);
         }
     }
@@ -243,7 +288,7 @@ public class FileUtils {
     private static void addRChmod777(File file) throws IOException {
         if (!isWindows()) {
             String cmdGrant = "chmod -R 777 " + file.getAbsolutePath();
-            log.info("FileUtilFile#addRChmod777: file augmentation after moving: {}", cmdGrant);
+            log.info("FileUtils#addRChmod777: file augmentation after moving: {}", cmdGrant);
             Runtime.getRuntime().exec(cmdGrant);
         }
     }

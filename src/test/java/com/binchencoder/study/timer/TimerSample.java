@@ -2,7 +2,7 @@ package com.binchencoder.study.timer;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TimerSample {
 

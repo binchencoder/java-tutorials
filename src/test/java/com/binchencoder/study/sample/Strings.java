@@ -3,7 +3,7 @@ package com.binchencoder.study.sample;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by chenbin on 20-7-30.

@@ -1,7 +1,7 @@
 package com.binchencoder.study.string;
 
 import junit.framework.TestCase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * 生成随机字符串

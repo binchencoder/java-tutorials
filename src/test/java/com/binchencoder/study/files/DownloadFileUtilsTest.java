@@ -4,7 +4,7 @@ import com.binchencoder.study.BaseApplicationJunit;
 import com.binchencoder.study.common.Constant;
 import java.io.File;
 import java.io.FileNotFoundException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class DownloadFileUtilsTest extends BaseApplicationJunit {

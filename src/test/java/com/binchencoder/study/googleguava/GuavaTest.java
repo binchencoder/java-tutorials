@@ -6,7 +6,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import java.math.RoundingMode;
 import java.util.List;
 import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

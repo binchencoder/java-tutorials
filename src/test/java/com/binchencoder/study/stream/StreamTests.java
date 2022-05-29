@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.testng.collections.Lists;
 
 /**
