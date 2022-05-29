@@ -155,17 +155,16 @@ public class FileUtils {
         }
 
         for (File file : deleteRootDir.listFiles()) {
-            if (file.isDirectory()) {
-                try {
-                    org.apache.commons.io.FileUtils.deleteDirectory(file);
-                } catch (IOException e) {
-                    log.warn("Failed delete dir[{}] in the directory[{}]", file, deleteRootDir);
-                    // PASS
-                }
+            if (file.getName().endsWith(fileSuffix)) {
                 continue;
             }
-            if (!file.getName().endsWith(fileSuffix)) {
-                file.deleteOnExit();
+
+            try {
+                org.apache.commons.io.FileUtils.forceDelete(file);
+            } catch (IOException e) {
+                log.warn("Failed force delete file[{}] in the directory[{}]",
+                    file, deleteRootDir);
+                // PASS
             }
         }
     }
