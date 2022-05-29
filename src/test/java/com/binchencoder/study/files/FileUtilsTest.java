@@ -46,4 +46,15 @@ public class FileUtilsTest {
         File destDir = new File("/home/chenbin/test/desttest");
         FileUtils.copyFilesToDirectory(srcDir, destDir, (fileName) -> fileName.endsWith(".txt"));
     }
+
+    @Test
+    void unzipAndCopyFilesToDir() throws IOException {
+        File zipFile = new File("/home/chenbin/test/srctest.zip");
+        String unzipDir = "/home/chenbin/test/ziptemp";
+        FileZipUtils.zipUncompress(zipFile, unzipDir);
+
+        File srcDir = new File(unzipDir);
+        File destDir = new File("/home/chenbin/test/destdir");
+        FileUtils.copyFilesToDirectory(srcDir, destDir, (fileName) -> fileName.endsWith(".txt"));
+    }
 }
