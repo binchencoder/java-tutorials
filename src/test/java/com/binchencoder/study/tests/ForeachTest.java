@@ -1,5 +1,6 @@
 package com.binchencoder.study.tests;
 
+import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,5 +45,14 @@ public class ForeachTest {
         });
 
         System.out.println("end");
+    }
+
+    @Test
+    public void testFinal() {
+        final List<String> lst = Lists.newArrayList();
+        lst.add("A");
+
+        List<String> final1 = lst;
+        System.out.println(final1);
     }
 }
