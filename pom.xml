@@ -38,7 +38,7 @@
 		<commons.codec.version>1.15</commons.codec.version>
 
 		<!-- Fasterxml Jackson -->
-		<fasterxml.jackson.version>2.13.3</fasterxml.jackson.version>
+		<fasterxml.jackson.version>2.13.4.1</fasterxml.jackson.version>
 
 		<!-- Testing dependency versions -->
 		<org.testng.verison>7.5</org.testng.verison>
