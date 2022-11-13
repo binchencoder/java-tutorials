@@ -16,6 +16,14 @@ public class Tests {
         addRChmod777(file);
     }
 
+    @Test
+    public void listFiles() throws IOException {
+        File file = new File("/home/chenbin/data/algorithm/ner-spacy/training_input/20220711");
+        for (File listFile : file.listFiles()) {
+            System.out.println(listFile.getAbsolutePath());
+        }
+    }
+
     /**
      * 增加权限, 使路径及子路径都有权限
      */
