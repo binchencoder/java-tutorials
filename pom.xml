@@ -237,6 +237,19 @@
 			<version>${lombok.version}</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk15on</artifactId>
+			<version>1.57</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk16 -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcmail-jdk15on</artifactId>
+			<version>1.56</version>
+		</dependency>
+
 		<!-- Testing -->
 		<dependency>
 			<groupId>org.testng</groupId>
